@@ -11,10 +11,18 @@ const SignUp = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    const terms = e.target.terms.checked;
+
+    console.log(email, password,terms);
 
     setSuccess(false);
-    setErrorMessage("");
+ 
+
+    if(!terms){
+      setErrorMessage()
+         setErrorMessage("please accecpt out terms and conditions");
+    return
+    }
 
     // password validation
     const passwordRegExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
@@ -82,6 +90,7 @@ const SignUp = () => {
                   <input type="checkbox" name="terms" className="checkbox" />
                   Accept Terms and Conditions
                 </lebel>
+                <br />
 
                 <div>
                   <button className="btn btn-neutral mt-6">Sign Up</button>
