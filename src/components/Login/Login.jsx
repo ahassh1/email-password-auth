@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { auth } from "../../firebase.init";
 
 const Login = () => {
+    const [success, setSuccess]=useState(false)
   const [errorMessage, setErrorMessage] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
@@ -13,12 +14,14 @@ const Login = () => {
     console.log(email, password);
 
     //reset 
+    setSuccess(false)
     setErrorMessage('');
 
     // login user
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         console.log(result.user);
+        setSuccess(true)
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +63,9 @@ const Login = () => {
         </p>
         {
             errorMessage && <p className="text-red-500">{errorMessage}</p>
+        }
+        {
+            success && <p className="text-green-400">User logged in successfully</p>
         }
       </div>
     </div>
