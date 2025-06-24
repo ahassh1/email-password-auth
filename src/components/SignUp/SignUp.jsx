@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase.init';
+import { FaEye } from 'react-icons/fa';
 
 const SignUp = () => {
   const [success, setSuccess] = useState(false)
@@ -13,6 +14,7 @@ const SignUp = () => {
     
     setSuccess(false)
     setErrorMessage('')
+    
 
     // password validation 
     const passwordRegExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
@@ -47,10 +49,16 @@ const SignUp = () => {
           <label className="label">Email</label>
           <input type="email" name='email' className="input" placeholder="Email" />
           <label className="label mt-4">Password</label>
-          <input type="password" name='password' className="input" placeholder="Password" />
+         
+         <div className='relative'>
+             <input type="password" name='password' className="input" placeholder="Password" />
+             <button className='btn btn-xs absolute top-2 right-6'><FaEye></FaEye></button>
+         </div>
+
           <div><a className="link link-hover mt-2">Forgot password?</a></div>
           <button className="btn btn-neutral mt-6">Sign Up</button>
         </form>
+
         {
           errorMessage && <p className='text-red-600'>{errorMessage}</p>
         }
