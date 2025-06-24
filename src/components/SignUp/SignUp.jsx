@@ -107,6 +107,7 @@ const SignUp = () => {
               {success && (
                 <p className="text-green-500">User has created successfully</p>
               )}
+              
             </div>
           </div>
         </div>
