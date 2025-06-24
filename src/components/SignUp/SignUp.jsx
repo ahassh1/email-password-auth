@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase.init";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router";
 
 const SignUp = () => {
   const [success, setSuccess] = useState(false);
@@ -13,15 +14,14 @@ const SignUp = () => {
     const password = e.target.password.value;
     const terms = e.target.terms.checked;
 
-    console.log(email, password,terms);
+    console.log(email, password, terms);
 
     setSuccess(false);
- 
 
-    if(!terms){
-      setErrorMessage()
-         setErrorMessage("please accecpt out terms and conditions");
-    return
+    if (!terms) {
+      setErrorMessage();
+      setErrorMessage("please accecpt out terms and conditions");
+      return;
     }
 
     // password validation
@@ -84,8 +84,7 @@ const SignUp = () => {
                   <a className="link link-hover mt-2">Forgot password?</a>
                 </div>
 
-
-            {/* accept checkbox */}
+                {/* accept checkbox */}
                 <lebel className="label mt-2">
                   <input type="checkbox" name="terms" className="checkbox" />
                   Accept Terms and Conditions
@@ -96,6 +95,13 @@ const SignUp = () => {
                   <button className="btn btn-neutral mt-6">Sign Up</button>
                 </div>
               </form>
+
+              <p>
+                Already have an account ? Please{" "}
+                <Link className="text-blue-500 underline" to="/login">
+                  Login
+                </Link>
+              </p>
 
               {errorMessage && <p className="text-red-600">{errorMessage}</p>}
               {success && (
