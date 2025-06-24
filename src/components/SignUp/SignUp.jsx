@@ -68,16 +68,24 @@ const SignUp = () => {
                     }}
                     className="btn btn-xs absolute top-2 right-6"
                   >
-                    {
-                    showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
-                    }
+                    {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                   </button>
                 </div>
 
                 <div>
                   <a className="link link-hover mt-2">Forgot password?</a>
                 </div>
-                <button className="btn btn-neutral mt-6">Sign Up</button>
+
+
+            {/* accept checkbox */}
+                <lebel className="label mt-2">
+                  <input type="checkbox" name="terms" className="checkbox" />
+                  Accept Terms and Conditions
+                </lebel>
+
+                <div>
+                  <button className="btn btn-neutral mt-6">Sign Up</button>
+                </div>
               </form>
 
               {errorMessage && <p className="text-red-600">{errorMessage}</p>}
