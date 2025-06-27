@@ -43,7 +43,7 @@ const SignUp = () => {
         sendEmailVerification(auth.currentUser)
         .then(() =>{
           setSuccess(true);
-          alert('')
+          alert('We sent you a verification email, please check your email')
          
         })
       })
