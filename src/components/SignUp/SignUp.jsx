@@ -87,9 +87,7 @@ const SignUp = () => {
                   </button>
                 </div>
 
-                <div>
-                  <a className="link link-hover mt-2">Forgot password?</a>
-                </div>
+             
 
                 {/* accept checkbox */}
                 <lebel className="label mt-2">

@@ -1,11 +1,14 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router";
 import { auth } from "../../firebase.init";
 
 const Login = () => {
     const [success, setSuccess]=useState(false)
   const [errorMessage, setErrorMessage] = useState("");
+
+  const emailRef = useRef();
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -21,14 +24,34 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         console.log(result.user);
-        setSuccess(true);
-        
+      
+        if(!result.user.emailVerified){
+          alert('please verify your email address now')
+        }else{
+          setSuccess(true)
+        }
+
       })
       .catch((error) => {
         console.log(error);
         setErrorMessage(error.message)
       });
   };
+  const handleForgetPassword =() =>{
+    console.log(emailRef.current.value);
+    const email = emailRef.current.value;
+    
+    setErrorMessage('');
+
+    // send password reset email 
+    sendPasswordResetEmail(auth, email)
+    .then(() =>{
+      alert('A password reset email is sent. Please check your email.')
+    })
+    .catch(error =>{
+      setErrorMessage(error.message)
+    })
+  }
 
 
   return (
@@ -37,7 +60,7 @@ const Login = () => {
         <h1 className="text-5xl font-bold">Login now!</h1>
         <form onClick={handleLogin} className="fieldset">
           <label className="label">Email</label>
-          <input
+          <input ref={emailRef}
             type="email"
             className="input"
             name="email"
@@ -50,7 +73,7 @@ const Login = () => {
             name="password"
             placeholder="Password"
           />
-          <div>
+          <div onClick={handleForgetPassword}>
             <a className="link link-hover">Forgot password?</a>
           </div>
           <button className="btn btn-neutral mt-4">Login</button>
