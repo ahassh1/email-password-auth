@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase.init";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -10,11 +13,14 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleSingUp = (e) => {
     e.preventDefault();
+
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const terms = e.target.terms.checked;
 
-    console.log(email, password, terms);
+    console.log(email, password, terms,photo, name);
 
     setSuccess(false);
 
@@ -38,14 +44,13 @@ const SignUp = () => {
       .then((result) => {
         console.log(result);
 
-        
-        // email verify 
-        sendEmailVerification(auth.currentUser)
-        .then(() =>{
+        // email verify
+        sendEmailVerification(auth.currentUser).then(() => {
           setSuccess(true);
-          alert('We sent you a verification email, please check your email')
-         
-        })
+          alert("We sent you a verification email, please check your email");
+        });
+
+        
       })
       .catch((error) => {
         console.log(error);
@@ -61,7 +66,21 @@ const SignUp = () => {
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-5xl">
             <div className="card-body">
               <form onSubmit={handleSingUp}>
-                <label className="label">Email</label>
+                <label className="label">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="input"
+                  placeholder="your name"
+                />
+                <label className="label mt-2">Photo URL</label>
+                <input
+                  type="text"
+                  name="photo"
+                  className="input"
+                  placeholder="your photo URL"
+                />{" "}
+                <label className="label mt-2">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -69,7 +88,6 @@ const SignUp = () => {
                   placeholder="Email"
                 />
                 <label className="label mt-4">Password</label>
-
                 <div className="relative">
                   <input
                     type={showPassword ? " text" : "password"}
@@ -86,16 +104,12 @@ const SignUp = () => {
                     {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                   </button>
                 </div>
-
-             
-
                 {/* accept checkbox */}
                 <lebel className="label mt-2">
                   <input type="checkbox" name="terms" className="checkbox" />
                   Accept Terms and Conditions
                 </lebel>
                 <br />
-
                 <div>
                   <button className="btn btn-neutral mt-6">Sign Up</button>
                 </div>
@@ -112,7 +126,6 @@ const SignUp = () => {
               {success && (
                 <p className="text-green-500">User has created successfully</p>
               )}
-              
             </div>
           </div>
         </div>
