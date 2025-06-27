@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase.init";
@@ -47,11 +48,22 @@ const SignUp = () => {
         // email verify
         sendEmailVerification(auth.currentUser).then(() => {
           setSuccess(true);
-          alert("We sent you a verification email, please check your email");
+          alert("We sent you a verification email, please check your email")
+
         });
 
-        
+      // update user profile
+      const profile ={
+        displayName : name , 
+        photoURL : photo
+      }
+      updateProfile(auth.currentUser, profile)
+      .then(()=>{
+        console.log('user profile updated ');
       })
+      .catch(error => console.log(error))
+      })
+
       .catch((error) => {
         console.log(error);
         setErrorMessage(error.message);

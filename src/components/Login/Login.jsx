@@ -82,8 +82,8 @@ const Login = () => {
 
         <p>
           New to the website , Please{" "}
-          <Link className="text-blue-400 underline" to="/singUp">
-            Sing Up 
+          <Link className="text-blue-400 underline" to="/signUp">
+            Sign Up 
           </Link>
         </p>
         {
